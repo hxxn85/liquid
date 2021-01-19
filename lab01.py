@@ -5,7 +5,7 @@ from scipy import signal
 import sp
 
 #%% load water data
-water = pd.read_csv('dataset/Tx8_80_물.csv')
+water = pd.read_csv('dataset/water.csv')
 slave = [water.groupby('Unnamed: 0').get_group(f'Slave{i+1}') for i in range(10)]
 
 data = np.array([slave[i].mean() for i in range(len(slave))])

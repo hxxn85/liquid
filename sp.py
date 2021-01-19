@@ -12,7 +12,7 @@ def xcorr(x, y, mode='full', scaleopt='None'):
     return rxy, lags
 
 def mag2db(x):
-    return 20*np.log10(np.abs(np.array(x)))
+    return 10*np.log10(np.abs(np.array(x)))
 
 def pulseint(x, method='noncoherent'):
     x = np.asarray(x)
