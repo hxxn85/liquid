@@ -12,11 +12,12 @@ def _centered(x):
 class Dataset:
     def __init__(self):
         self._files = os.listdir('dataset')
+        if '.DS_Store' in self._files: self._files.remove('.DS_Store')
 
     def rx(self, k):
         data = {}
         for i in range(len(self._files)):
-            x = pd.read_csv(f'dataset/{self._files[i]}')
+            x = pd.read_csv(f'dataset/{self._files[i]}', encoding='cp949')
             y = x.groupby('Unnamed: 0').get_group(f'Slave{k}')
             y = y.drop('Unnamed: 0', axis=1)
             y = y.T.apply(_centered).T

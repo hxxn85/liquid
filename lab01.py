@@ -9,11 +9,9 @@ water = pd.read_csv('dataset/water.csv')
 slave = [water.groupby('Unnamed: 0').get_group(f'Slave{i+1}') for i in range(10)]
 
 data = np.array([slave[i].mean() for i in range(len(slave))])
-
 #%% todo: normalize and pulse integration
 
 #%% todo: singluar value decomposition for clutter removal
-
 
 #%% plot data
 n = 512

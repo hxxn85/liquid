@@ -1,23 +1,13 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy import signal, linalg
-import sp
+from scipy import linalg
+from sp import *
 
 import dataset
-
-def pulseint(x, method='noncoherent'):
-    if method not in ['noncoherent', 'coherent']:
-        raise ValueError("method should be 'coherent' or 'noncoherent'")
-
-    if method == 'noncoherent':
-        return np.sqrt(np.sum(np.power(np.absolute(x), 2), 0))
-    elif method == 'coherent':
-        return np.sum(x, 0)
 
 param = dataset.Param()
 x = dataset.Dataset().rx(10)
 target = ['toluene', 'water', 'space']
-y = {lqd: pulseint(x[lqd], 'coherent').values for lqd in target}
+y = {lqd: pulseint(x[lqd], 'coherent') for lqd in target}
 
 plt.figure()
 plt.plot(param.t*1e9, y['toluene'], alpha=.7, label='toluene')
@@ -71,8 +61,8 @@ plt.show()
 
 #%%
 ref = signal.gausspulse(param.t-param.n/2*param.ts, fc=5e9, bw=0.5)
-rxy, lags = sp.xcorr(ref, r)
-plt.plot(lags[512:]*param.ts*1e9, sp.mag2db(rxy[512:]))
+rxy, lags = xcorr(ref, r)
+plt.plot(lags[512:]*param.ts*1e9, mag2db(rxy[512:]))
 plt.grid()
 plt.ylim([-30, 100])
 plt.show()
